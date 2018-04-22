@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+=======
+>>>>>>> db7b55e04e8e64f5dd91a890dabfa09de3fa2f5e
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +34,11 @@ public class ArticleController {
 	}
 
 	@GetMapping(path = "articles/{article-id}")
+<<<<<<< HEAD
 		public ResponseEntity<Article> getArticleById(@PathVariable("article-id") Long id) {
+=======
+	public ResponseEntity<Article> getArticleById(@PathVariable("article-id") Long id) {
+>>>>>>> db7b55e04e8e64f5dd91a890dabfa09de3fa2f5e
 		Article article = articleService.findById(id);
 		if (article != null)
 			return new ResponseEntity<>(article, HttpStatus.OK);
