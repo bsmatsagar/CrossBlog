@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class ArticleControllerTest {
 	}
 	
 	 @Test
-	    public void TestgetArticleById() throws Exception {
+	    public void testgetArticleById() throws Exception {
 		 ResponseEntity<Article> responseEntity = template.getForEntity("/articles/{article-id}", 
 				  Article.class, 
 				  new Long(1));
@@ -59,6 +60,23 @@ public class ArticleControllerTest {
 				  assertEquals(1l, resultEmployee.getId().longValue());
 	    }
 
+	 
+	 @Test
+	 public void testdeleteArticleById() throws Exception {
+		 
+		  ResponseEntity<Article> responseEntity = template.exchange("/articles/{article-id}", 
+		  HttpMethod.DELETE, 
+		  null, 
+		  Article.class,
+		  new Long(1));
+		
+		  int status = responseEntity.getStatusCodeValue();
+		  assertEquals("Incorrect Response Status", HttpStatus.GONE.value(), status);
+		 
+		}
+	 
+	 
+	 
 	private HttpEntity<Object> getHttpEntity(Object body) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
