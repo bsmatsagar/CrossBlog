@@ -1,5 +1,6 @@
 package com.crossover.techtrial.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,22 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleRepository.findById(id).orElse(null);
 	}
 
+	
+	public void updateArticle(Article article) {
+		articleRepository.save(article);
+	}
+	
+	
 	public void delete(Long id) {
 		articleRepository.deleteById(id);
 	}
+	
 
 	public List<Article> search(String search) {
-		return articleRepository.findTop10ByTitleContainingIgnoreCase(search);
+		List<Article> list = new ArrayList<>();
+		articleRepository.findAll().forEach(e -> list.add(e));
+		 
+	       	return articleRepository.findTop10ByTitleContainingIgnoreCase(list);
 	}
 
 }

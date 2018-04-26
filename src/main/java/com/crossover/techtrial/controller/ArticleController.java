@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crossover.techtrial.model.Article;
@@ -27,22 +30,27 @@ public class ArticleController {
 	public ResponseEntity<Article> createArticle(@RequestBody Article article) {
 		return new ResponseEntity<>(articleService.save(article), HttpStatus.CREATED);
 	}
+	
 
-	@GetMapping(path = "articles/{article-id}")
-		public ResponseEntity<Article> getArticleById(@PathVariable("article-id") Long id) {
+	@GetMapping(path = "articles/article-id")
+	public ResponseEntity<Article> getArticleById(@PathVariable("article-id") Long id) {
 		Article article = articleService.findById(id);
 		if (article != null)
 			return new ResponseEntity<>(article, HttpStatus.OK);
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	
 	@PutMapping(path = "articles/{article-id}")
 	public ResponseEntity<Article> updateArticle(@PathVariable("article-id") Long id, @RequestBody Article article) {
+		articleService.updateArticle(article);		
 		return new ResponseEntity<>(articleService.save(article), HttpStatus.OK);
 	}
+	
+	
 
-	@DeleteMapping(path = "articles/{article-id}")
-	public ResponseEntity<Article> deleteArticleById(@PathVariable("article-id") Long id) {
+	@DeleteMapping("articles/{id}")
+	public ResponseEntity<Article> deleteArticleById(@PathVariable("id") Long id) {
 		articleService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -53,7 +61,9 @@ public class ArticleController {
 	 */
 	@GetMapping(path = "articles/search")
 	public ResponseEntity<List<Article>> searchArticles(@RequestParam(value = "text") String text) {
+	
 		return new ResponseEntity<>(articleService.search(text), HttpStatus.OK);
+	
 	}
 
 }

@@ -20,7 +20,11 @@ public interface ArticleService {
 	 * 
 	 */
 	Article findById(Long id);
-
+	
+	/*
+	 * Update a particular article with id
+	 */
+	 void updateArticle(Article article);
 	/*
 	 * Delete a particular article with id
 	 */

@@ -51,15 +51,32 @@ public class ArticleControllerTest {
 				 
 				  // collect response
 				  int status = responseEntity.getStatusCodeValue();
-				  Article resultEmployee = responseEntity.getBody();
+				  Article resultalrticle = responseEntity.getBody();
 				 
 				  // verify
 				  assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
 				 
-				  assertNotNull(resultEmployee);
-				  assertEquals(1l, resultEmployee.getId().longValue());
+				  assertNotNull(resultalrticle);
+				  assertEquals(1l, resultalrticle.getId().longValue());
 	    }
-
+	 @Test
+	 public void testupdateArticle() throws Exception {
+	
+			Article article = new Article();
+			HttpEntity<Article> requestEntity = new HttpEntity<Article>(article);
+			 
+			  // execute
+			  ResponseEntity<Article> responseEntity = template.exchange("/articles/{id}", 
+			  HttpMethod.PUT, 
+			  requestEntity, 
+			  Article.class);
+			 
+			  // verify
+			  int status = responseEntity.getStatusCodeValue();
+			  assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
+			
+		 
+	 }
 	 
 	 @Test
 	 public void testdeleteArticleById() throws Exception {
@@ -75,7 +92,7 @@ public class ArticleControllerTest {
 		 
 		}
 	 
-	 
+	
 	 
 	private HttpEntity<Object> getHttpEntity(Object body) {
 		HttpHeaders headers = new HttpHeaders();
